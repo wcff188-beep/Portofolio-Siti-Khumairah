@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#11194f"><title>Editor Lengkap — Portofolio Siti Khumairah</title>
+<style>
+:root{--navy:#11194f;--pale:#e3eff0}*{box-sizing:border-box}
+body{margin:0;background:#f3f5f8;color:#202638;font:15px/1.5 system-ui,-apple-system,Segoe UI,Arial,sans-serif}
+header{background:var(--navy);color:white;padding:19px max(18px,calc((100vw - 1120px)/2));display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+header b{letter-spacing:.04em}header a{color:white;text-decoration:none;border:1px solid #ffffff66;border-radius:9px;padding:8px 12px;font-size:13px}
+main{max-width:1120px;margin:24px auto;padding:0 16px 50px;display:grid;grid-template-columns:minmax(0,1fr) 310px;gap:20px;align-items:start}
+.panel,.side{background:#fff;border:1px solid #dfe4eb;border-radius:15px;padding:20px;box-shadow:0 5px 18px #19234b08}
+h1{font-size:24px;color:#11194f;margin:0 0 4px}.lead{font-size:13px;color:#687386;margin:0 0 20px}
+details{border:1px solid #e2e7ee;border-radius:11px;margin:12px 0;overflow:hidden}
+summary{padding:13px 15px;font-weight:750;color:#11194f;background:#f8fafc;cursor:pointer}
+.content{padding:4px 14px 14px}.field{margin:14px 0}.field label{display:block;font-weight:650;font-size:13px;margin-bottom:6px}
+input[type=text],textarea{width:100%;border:1px solid #cbd3df;border-radius:8px;padding:10px 11px;font:inherit}
+textarea{min-height:82px;resize:vertical}input[type=color]{width:54px;height:38px;border:0;background:none;padding:0;vertical-align:middle}
+input[type=file]{width:100%;font-size:12px}small{display:block;color:#6b7280;font-size:11px;margin-top:4px}
+.image-field{display:grid;grid-template-columns:100px 1fr;gap:12px;align-items:center;border-top:1px solid #edf0f4;padding:12px 0}
+.image-field img{width:100px;height:74px;object-fit:cover;border-radius:7px;background:#e5e7eb}
+.image-field label{font-weight:700;font-size:13px;display:block;margin-bottom:5px}
+.btns{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}
+button{border:0;border-radius:9px;padding:11px 15px;font-weight:700;cursor:pointer}
+.save{background:#11194f;color:white}.reset{background:#e9edf3;color:#27324a}
+.status{font-size:13px;color:#137447;min-height:22px;margin-top:10px}
+.side{position:sticky;top:15px}.side h2{font-size:15px;color:#11194f;margin:0 0 10px}
+.preview{background:#11194f;color:#f2f6f4;border-radius:10px;padding:19px;margin-bottom:12px}
+.preview strong{display:block;font-size:12px;font-weight:400}.preview b{display:block;font-family:Impact,sans-serif;font-size:42px;line-height:1.05;text-transform:uppercase;overflow-wrap:anywhere}
+.preview span{display:block;text-align:right;font-size:12px}.side p{font-size:12px;color:#687386}
+@media(max-width:850px){main{grid-template-columns:1fr}.side{position:static;grid-row:1}.panel{grid-row:2}}
+</style></head>
+<body>
+<header><b>EDITOR LENGKAP · SITI KHUMAIRAH</b><a href="index.html">← Lihat website</a></header>
+<main>
+<section class="panel">
+<h1>Edit semua halaman utama</h1>
+<p class="lead">Semua tulisan, gambar, keterangan karya, dan warna utama bisa diubah di sini. Buka bagian yang ingin kamu edit.</p>
+<form id="form">
+<div id="fields"></div>
+<div class="btns"><button class="save" type="submit">Simpan semua perubahan</button><button class="reset" type="button" id="reset">Reset ke versi awal</button></div>
+<div class="status" id="status" role="status" aria-live="polite"></div>
+</form>
+</section>
+<aside class="side">
+<h2>Pratinjau halaman pembuka</h2>
+<div class="preview"><strong id="pvName">Siti Khumairah</strong><b id="pvTitle">PORTOFOLIO</b><span id="pvSub">Desain Grafis</span></div>
+<p>Perubahan tersimpan pada browser/perangkat ini. Untuk memperbarui website online agar semua pengunjung melihat perubahan, file website perlu diunggah ulang atau menggunakan sistem admin online.</p>
+</aside>
+</main>
+<script>
+const textGroups=[
+ {title:'1. Halaman pembuka',items:[
+  ['brand','Nama pada logo navigasi','SITI KHUMAIRAH'],['navHome','Menu Beranda','Beranda'],['navAbout','Menu Tentang Saya','Tentang Saya'],['navDesign','Menu Desain Grafis','Desain Grafis'],['navPhoto','Menu Fotografi','Fotografi'],['heroName','Nama kecil di halaman pembuka','Siti Khumairah'],['heroTitle','Judul besar','Portofolio'],['heroSubtitle','Subjudul','Desain Grafis'],['heroHint','Kalimat kecil di bawah','Kreativitas dalam setiap karya']
+ ]},
+ {title:'2. Bagian Tentang Saya',items:[
+  ['aboutHeading','Judul bagian (gunakan baris baru untuk pindah baris)','Tentang\\nSaya'],['aboutScript','Tulisan dekoratif','Siti'],['aboutName','Nama besar','Khumairah'],['bio','Deskripsi profil','Saya adalah individu yang aktif, kreatif, dan adaptif dengan pengalaman 4 bulan sebagai content creator, serta desain carousel dan feed Instagram. Mampu membangun audiens di berbagai platform, mengembangkan strategi konten, pengelolaan media sosial serta meningkatkan engagement dan mampu menjadi daya tarik sebagai audiens.']
+ ]},
+ {title:'3. Bagian Hasil Desain',items:[
+  ['designHeading','Judul galeri (gunakan baris baru untuk pindah baris)','Hasil\\nDesain'],
+  ...[['Eksplorasi komposisi dan manipulasi foto',1],['Desain ilustrasi',2],['Kolase dan komposisi visual',3],['Manipulasi foto digital',4],['Desain poster bergaya komik',5],['Desain promosi produk',6],['Eksplorasi logo',7],['Poster acara',8],['Poster promosi wisata',9]].map(([v,i])=>['designCap'+i,'Keterangan karya desain '+i,v])
+ ]},
+ {title:'4. Bagian Projek Fotografi',items:[
+  ['photoHeading','Judul bagian fotografi','Projek'],['photoScript','Tulisan dekoratif','fotografi'],
+  ...[['Keindahan bunga merah',1],['Detail bunga putih',2],['Potret kucing',3],['Rangkaian bunga',4],['Nuansa alami',5]].map(([v,i])=>['photoCap'+i,'Keterangan foto '+i,v])
+ ]},
+ {title:'5. Bagian footer / paling bawah',items:[
+  ['footerName','Nama footer','Siti Khumairah'],['footerSubtitle','Keterangan footer','Portofolio Desain Grafis & Fotografi'],['editLink','Tulisan tautan editor','Edit halaman utama']
+ ]}
+];
+const imageGroups=[
+ {title:'6. Ganti foto profil',items:[['portrait','Foto profil','assets/about-portrait.jpg']]},
+ {title:'7. Ganti gambar hasil desain',items:[
+  ['designImg1','Karya desain 1','assets/design-double-exposure.jpg'],['designImg2','Karya desain 2','assets/design-signage.jpg'],['designImg3','Karya desain 3','assets/design-triptych.jpg'],['designImg4','Karya desain 4','assets/design-landscape.jpg'],['designImg5','Karya desain 5','assets/design-comic.jpg'],['designImg6','Karya desain 6','assets/design-sprite.jpg'],['designImg7','Karya desain 7','assets/design-logo.jpg'],['designImg8','Karya desain 8','assets/design-culinary.jpg'],['designImg9','Karya desain 9','assets/design-travel.jpg']
+ ]},
+ {title:'8. Ganti gambar fotografi',items:[
+  ['photoImg1','Foto bunga merah','assets/photo-red-flowers.jpg'],['photoImg2','Foto bunga putih','assets/photo-white-flowers.jpg'],['photoImg3','Foto kucing','assets/photo-cat.jpg'],['photoImg4','Foto rangkaian bunga','assets/photo-white-bouquet.jpg'],['photoImg5','Foto bunga krem','assets/photo-cream-flowers.jpg']
+ ]}
+];
+const themeDefaults={navy:'#11194f',pale:'#e3eff0',ink:'#11194f'};
+const initial={};
+textGroups.forEach(g=>g.items.forEach(([k,l,v])=>initial[k]=v));
+let saved={};
+try{saved=JSON.parse(localStorage.getItem('sitiPortfolioContent')||'{}')}catch(e){}
+const fields=document.getElementById('fields');
+function makeTextField(k,label,value){
+ const wrap=document.createElement('div');wrap.className='field';
+ const lab=document.createElement('label');lab.htmlFor=k;lab.textContent=label;
+ const input=(k==='bio'||k==='aboutHeading'||k==='designHeading')?document.createElement('textarea'):document.createElement('input');
+ if(input.tagName==='INPUT')input.type='text';input.id=k;input.value=value;input.dataset.key=k;
+ wrap.append(lab,input);return wrap;
+}
+textGroups.forEach((group,idx)=>{
+ const d=document.createElement('details');if(idx===0)d.open=true;
+ const s=document.createElement('summary');s.textContent=group.title;d.append(s);
+ const c=document.createElement('div');c.className='content';
+ group.items.forEach(([k,label,def])=>c.append(makeTextField(k,label,typeof saved[k]==='string'?saved[k]:def)));
+ d.append(c);fields.append(d);
+});
+const defaultImages={};
+imageGroups.forEach((group,idx)=>{
+ const d=document.createElement('details');const s=document.createElement('summary');s.textContent=group.title;d.append(s);
+ const c=document.createElement('div');c.className='content';
+ group.items.forEach(([k,label,src])=>{
+  defaultImages[k]=src;
+  const row=document.createElement('div');row.className='image-field';
+  const img=document.createElement('img');img.alt=label;img.src=saved[k]||src;img.id='thumb-'+k;
+  const right=document.createElement('div');const lab=document.createElement('label');lab.textContent=label;
+  const input=document.createElement('input');input.type='file';input.accept='image/*';input.dataset.imageKey=k;
+  const note=document.createElement('small');note.textContent='Pilih gambar baru. Maksimal 3 MB sebelum kompresi.';
+  input.addEventListener('change',()=>handleImage(input,k,img));
+  right.append(lab,input,note);row.append(img,right);c.append(row);
+ });
+ d.append(c);fields.append(d);
+});
+const colorDetails=document.createElement('details');colorDetails.innerHTML='<summary>9. Ubah warna tema website</summary><div class="content"></div>';
+const colorContent=colorDetails.querySelector('.content');
+[['navy','Warna latar biru tua'],['pale','Warna latar biru muda'],['ink','Warna teks']].forEach(([k,label])=>{
+ const wrap=document.createElement('div');wrap.className='field';const lab=document.createElement('label');lab.textContent=label;
+ const input=document.createElement('input');input.type='color';input.id='color-'+k;input.value=saved[k]||themeDefaults[k];input.dataset.color=k;
+ wrap.append(lab,input);colorContent.append(wrap);
+});
+fields.append(colorDetails);
+function handleImage(input,key,img){
+ const file=input.files&&input.files[0];if(!file)return;
+ if(!file.type.startsWith('image/')){setStatus('File harus berupa gambar.');return}
+ const reader=new FileReader();
+ reader.onload=()=>{const im=new Image();im.onload=()=>{
+  const max=1400,scale=Math.min(1,max/im.width,max/im.height),canvas=document.createElement('canvas');
+  canvas.width=Math.round(im.width*scale);canvas.height=Math.round(im.height*scale);
+  canvas.getContext('2d').drawImage(im,0,0,canvas.width,canvas.height);
+  const data=canvas.toDataURL('image/jpeg',.82);img.src=data;img.dataset.newImage=data;setStatus('Gambar '+key+' siap disimpan.');
+ };im.src=reader.result};
+ reader.readAsDataURL(file);
+}
+function setStatus(t){document.getElementById('status').textContent=t}
+function updatePreview(){
+ const val=id=>document.getElementById(id)?.value||'';
+ document.getElementById('pvName').textContent=val('heroName');
+ document.getElementById('pvTitle').textContent=val('heroTitle');
+ document.getElementById('pvSub').textContent=val('heroSubtitle');
+}
+document.querySelectorAll('[data-key]').forEach(el=>el.addEventListener('input',updatePreview));
+document.getElementById('form').addEventListener('submit',e=>{
+ e.preventDefault();const data={};
+ document.querySelectorAll('[data-key]').forEach(el=>data[el.dataset.key]=el.value);
+ document.querySelectorAll('[data-image-key]').forEach(el=>{
+  const k=el.dataset.imageKey,thumb=document.getElementById('thumb-'+k);
+  if(thumb.dataset.newImage)data[k]=thumb.dataset.newImage;
+  else if(saved[k])data[k]=saved[k];
+ });
+ document.querySelectorAll('[data-color]').forEach(el=>data[el.dataset.color]=el.value);
+ try{localStorage.setItem('sitiPortfolioContent',JSON.stringify(data));saved=data;setStatus('Berhasil disimpan! Buka index.html di browser yang sama untuk melihat seluruh perubahan.')}
+ catch(err){setStatus('Penyimpanan gagal. Coba kurangi ukuran/jumlah gambar, lalu simpan lagi.')}
+});
+document.getElementById('reset').addEventListener('click',()=>{
+ if(!confirm('Kembalikan semua teks, gambar, dan warna ke versi awal?'))return;
+ localStorage.removeItem('sitiPortfolioContent');location.reload();
+});
+updatePreview();
+</script>
+</body></html>
